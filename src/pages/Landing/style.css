@@ -1,0 +1,15 @@
+.ant-anchor::-webkit-scrollbar {
+  width: 250px;
+}
+.ant-anchor{
+  padding-left: 0px;
+}
+
+.ant-anchor-ink {
+  position: relative;
+}
+
+.ant-anchor-link {
+  padding: 0px;
+  line-height: 2;
+}
