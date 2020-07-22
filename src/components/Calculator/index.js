@@ -75,10 +75,10 @@ class Calculator extends React.Component{
                 <ResultItem>
                   <div className='room'>
                     <b className='roomSpec'>Одноместный стандарт</b>
-                    <div class="deal-food">Тип питания: завтраки</div>
-                    <div class="deal-dates">
-                      <strong class="deal-InOutDate">27.07.2020 — 03.08.2020</strong>
-                      <span class="deal-Night">(7 ночей)</span>
+                    <div>Тип питания: завтраки</div>
+                    <div>
+                      <strong>27.07.2020 — 03.08.2020</strong>
+                      <span>(7 ночей)</span>
                     </div>
                   </div>
                   <div className='perPrice'>
@@ -97,10 +97,10 @@ class Calculator extends React.Component{
                 <ResultItem>
                   <div className='room'>
                     <b className='roomSpec'>2-ух местный стандарт с 2 кроватями</b>
-                    <div class="deal-food">Тип питания: завтраки</div>
-                    <div class="deal-dates">
-                      <strong class="deal-InOutDate">27.07.2020 — 03.08.2020</strong>
-                      <span class="deal-Night">(7 ночей)</span>
+                    <div>Тип питания: завтраки</div>
+                    <div >
+                      <strong >27.07.2020 — 03.08.2020</strong>
+                      <span >(7 ночей)</span>
                     </div>
                   </div>
                   <div className='perPrice'>

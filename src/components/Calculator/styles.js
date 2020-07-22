@@ -4,8 +4,7 @@ import { breakpoints } from '@xstyled/system';
 export const MainContainer = styled.div`
 box-sizing: border-box;
 display: block;
-font-family: 'Geometria'!important;
-font-size: 16px!important;
+font-size: 16px;
 margin-right: 2vw;
 margin-left: 2vw;
 margin-top:2vh;

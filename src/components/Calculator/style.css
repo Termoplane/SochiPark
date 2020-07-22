@@ -4,7 +4,17 @@
     background-color: #fffff0;
     padding-left: 15px;
     padding-right: 15px;
+    border-radius: 15px;
+    box-shadow: 2px 3px 26px 0px rgba(0,0,0,0.25);
+    width:50%;
+    margin: auto;
 }
+
+@media screen and (max-width: 900px) {
+    .form-box {
+      width:100%;
+    }
+  }
 
 label {
     padding-top: 10px;
@@ -15,12 +25,12 @@ label {
 }
 
 .form-control {
-    padding: 20px 20px;
+    padding: 10px;
+    width: 100%;
+    line-height: 1.5;
+    font-size: 1rem;
     height: auto;
     display: block;
-    width: 100%;
-    font-size: 1rem;
-    line-height: 1.5;
     color: #495057;
     background-color: #fff;
     background-clip: padding-box;
@@ -39,15 +49,18 @@ h3 {
 }
 
 .searchButton {
-    display: inline-block;
-    padding: 20px 40px;
+    padding: 5px 10px;
     line-height: 35px;
-    background: #27ADBD;
+    background: #36a5f3;
     color: #fff;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
 }
 
 .searchButton:hover {
-    background: #17BB9D;
+    background: #2180c3;
+
 }
 
 .buttonContainer {
