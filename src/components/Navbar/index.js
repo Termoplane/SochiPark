@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { v4 as uuidv4 } from 'uuid';
+import Link from 'react-router-dom/Link';
 
 import ToggleMenuButton from '../../atoms/ToggleMenuButton'
 
@@ -61,7 +62,7 @@ class Navbar extends React.Component{
         
         <Header>
           <ToggleMenuButton onClick={onClick} toggleMenu={toggleMenu}/>
-          <Logo/>
+          <Link to="/"><Logo/></Link>
           <Number show={toggleMenu}>8-888-888-88-88</Number>
           <NumberIcon/>
         </Header>

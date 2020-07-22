@@ -14,9 +14,13 @@ import RoomPick from '../../components/RoomPick';
 import LandingDescription from '../../components/LandingDescription';
 import LandingLinks from '../../components/LandingLinks';
 import Calculator from '../../components/Calculator'
+import Form from '../../components/Form';
+import Footer from '../../components/Footer';
+import SEO from './Components/SEO';
 
 import { 
   Container, 
+  FormContainer,
 } from './styles';
 
 class Landing extends React.Component {
@@ -42,6 +46,11 @@ class Landing extends React.Component {
           <RoomPick arr={room}/>
           <LandingDescription/>
           <LandingLinks/>
+          <FormContainer>
+            <Form/>
+          </FormContainer>
+          <SEO/>
+          <Footer/>
       </Container>
     </Anchor>
     );
