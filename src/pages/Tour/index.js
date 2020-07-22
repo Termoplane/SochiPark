@@ -1,28 +1,23 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Anchor } from 'antd';
 import * as ThemeActions from '../../actions/themeActions';
-
-import './style.css'
+import { Anchor,Descriptions, Badge,Row,Col } from 'antd';
 
 import Navbar from '../../components/Navbar';
-import Swiper from '../../components/Swiper';
-import LandingInformation from '../../components/LandingInformation';
-import RoomPick from '../../components/RoomPick';
-import LandingDescription from '../../components/LandingDescription';
-import LandingLinks from '../../components/LandingLinks';
 import Form from '../../components/Form';
 import Footer from '../../components/Footer';
-import SEO from './Components/SEO';
+
 
 import { 
   Container, 
-  FormContainer,
+  Title,
+  Description,
+  Item,
+  Island,
 } from './styles';
 
-class Landing extends React.Component {
+class Tour extends React.Component {
   constructor(props){
     super(props)         
   }
@@ -34,21 +29,19 @@ class Landing extends React.Component {
   render() {
     const {room, toggleMenu} = this.props.arr    
     const {menu} = this.props.links
-    
       return (
     <Anchor>
+      <Navbar onClick={this.handleClick} toggleMenu={toggleMenu} arr={menu}/>
       <Container>
-          <Navbar onClick={this.handleClick} toggleMenu={toggleMenu} arr={menu}/>
-          <Swiper/>
-          <LandingInformation/>
-          <RoomPick arr={room}/>
-          <LandingDescription/>
-          <LandingLinks/>
-          <FormContainer>
-            <Form/>
-          </FormContainer>
-          <SEO/>
-          <Footer/>
+        <Item>
+          <Row justyfy="center" align="middle">
+            <Col span={24}><Title><Island/>Туры в Сочи Парк Отель<Island/></Title></Col>
+            <Col span={24}><Description>Заполните форму и мы вам предложим туры</Description></Col>
+
+          <Form/>
+          </Row>
+        </Item>
+        <Footer/>
       </Container>
     </Anchor>
     );
@@ -65,4 +58,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(Landing);
+export default connect(mapStateToProps,mapDispatchToProps)(Tour);

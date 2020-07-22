@@ -11,7 +11,7 @@
   "dependencies": {
     "@loadable/component": "^5.10.3",
     "@xstyled/styled-components": "^1.13.1",
-    "antd": "^3.26.13",
+    "antd": "^4.4.3",
     "classnames": "^2.2.6",
     "express": "4.17.1",
     "loadable-components": "^2.2.3",

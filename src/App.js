@@ -1,6 +1,6 @@
 import React from 'react';
-// import Route from 'react-router-dom/Route';
-// import Switch from 'react-router-dom/Switch';
+import Route from 'react-router-dom/Route';
+import Switch from 'react-router-dom/Switch';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
@@ -15,6 +15,9 @@ import * as ThemeActions from './actions/themeActions';
 import ThemeToggleButton from './components/ThemeToggleButton'
 
 import Landing from './Pages/Landing'
+import SPA from './Pages/SPA'
+import Tour from './Pages/Tour'
+import Food from './Pages/Food'
 
 import { BaseContainer } from './baseStyles/styles';
 import './baseStyles/base.css';
@@ -38,7 +41,20 @@ class App extends React.Component {
         <Helmet>
           <title>🔋 Сервис по ремонту iPhone в Краснодаре - Цена, отзывы</title>
         </Helmet>
-        <Landing/> 
+        <Switch>
+          <Route exact path='/' >
+            <Landing/>
+          </Route>
+          <Route exact path='/SPA' >
+            <SPA/>
+          </Route>
+          <Route exact path='/Tour' >
+            <Tour/>
+          </Route>
+          <Route exact path='/Food' >
+            <Food/>
+          </Route>
+        </Switch>
       </ThemeProvider>
     );
   }
