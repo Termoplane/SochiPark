@@ -13,6 +13,7 @@ import LandingInformation from '../../components/LandingInformation';
 import RoomPick from '../../components/RoomPick';
 import LandingDescription from '../../components/LandingDescription';
 import LandingLinks from '../../components/LandingLinks';
+import Calculator from '../../components/Calculator'
 
 import { 
   Container, 
@@ -37,6 +38,7 @@ class Landing extends React.Component {
           <Navbar onClick={this.handleClick} toggleMenu={toggleMenu} arr={menu}/>
           <Swiper/>
           <LandingInformation/>
+          <Calculator/>
           <RoomPick arr={room}/>
           <LandingDescription/>
           <LandingLinks/>
