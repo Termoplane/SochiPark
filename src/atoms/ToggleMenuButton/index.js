@@ -5,13 +5,6 @@ import {
 } from './styles';
 
 
-// const ToggleMenuButton = (props) => {
-//   console.log(props);
-  
-//   return <Button/>
-// }
-
-
 class ToggleMenuButton extends React.Component {
   constructor(props) {
     super(props)

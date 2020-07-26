@@ -5,21 +5,18 @@ import * as ThemeActions from '../../actions/themeActions';
 import { Anchor,Descriptions, Badge,Row,Col } from 'antd';
 
 import Navbar from '../../components/Navbar';
-import Form from '../../components/Form';
 import Footer from '../../components/Footer';
-import Calculator from '../../components/Calculator';
+
+import Photo from './components/Photo'
 
 
 import { 
   Container, 
-  Title,
-  Description,
   Item,
-  Island,
-  FormContainer,
+  Title,
 } from './styles';
 
-class Tour extends React.Component {
+class Gallery extends React.Component {
   constructor(props){
     super(props)         
   }
@@ -28,7 +25,7 @@ class Tour extends React.Component {
     this.props.ThemeActions.changeMenu();
   }
 
-  render() {
+  render() {  
     const {room, toggleMenu} = this.props.arr    
     const {menu} = this.props.links
       return (
@@ -36,12 +33,10 @@ class Tour extends React.Component {
       <Navbar onClick={this.handleClick} toggleMenu={toggleMenu} arr={menu}/>
       <Container>
         <Item>
-          <Title><Island/>Туры в Сочи Парк Отель<Island/></Title>
-          <Description>Заполните форму и мы вам предложим туры</Description>
-
-            <Calculator/>
+          <Title>Сочи Парк Отель фото</Title>
+          <Photo/>
         </Item>
-        <Footer/>
+      <Footer/>
       </Container>
     </Anchor>
     );
@@ -58,4 +53,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(Tour);
+export default connect(mapStateToProps,mapDispatchToProps)(Gallery);

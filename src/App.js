@@ -18,6 +18,9 @@ import Landing from './Pages/Landing'
 import SPA from './Pages/SPA'
 import Tour from './Pages/Tour'
 import Food from './Pages/Food'
+import Gallery from './Pages/Gallery'
+import Contact from './Pages/Contact'
+import Reviews from './Pages/Reviews'
 
 import { BaseContainer } from './baseStyles/styles';
 import './baseStyles/base.css';
@@ -53,6 +56,15 @@ class App extends React.Component {
           </Route>
           <Route exact path='/Food' >
             <Food/>
+          </Route>
+          <Route exact path='/Gallery' >
+            <Gallery/>
+          </Route>
+          <Route exact path='/Contact' >
+            <Contact/>
+          </Route>
+          <Route exact path='/Reviews' >
+            <Reviews/>
           </Route>
         </Switch>
       </ThemeProvider>

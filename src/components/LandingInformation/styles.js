@@ -5,10 +5,13 @@ import beach from '../../images/beach.jpg'
 
 export const Container = styled.div`
   width:100%;
-  height: 500px;
+  height: 400px;
   display:flex;
   align-items:center;
   justify-content:center;
+  margin-top:70px;
+  margin-bottom:100px;
+  
 `
 export const ItemContainer = styled.div(
   breakpoints({
@@ -31,6 +34,7 @@ export const Item = styled.div`
 width:100%;
 height: 100%;
 display:flex;
+box-shadow: 2px 3px 26px 0px rgba(0,0,0,0.45);
 `
 
 export const ItemImg = styled.div(
@@ -64,6 +68,7 @@ export const ItemText = styled.div(
       flex-direction:column;
       justify-content: space-evenly;
       align-items: flex-end;
+      padding:20px;
       `,
     lg: css`
       width:60%;
@@ -73,6 +78,7 @@ export const ItemText = styled.div(
       flex-direction:column;
       justify-content: space-evenly;
       align-items: flex-end;
+      padding:20px;
     `,
     // xl: css`
     //   width:60%;

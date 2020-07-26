@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Input, InputNumber, Button, Select,DatePicker,  } from 'antd';
 import 'moment/locale/ru';
 const { Option } = Select;
-import {Container} from './styles'
+import {Container,ItemButton} from './styles'
 
 const layout = {
   labelCol: {
@@ -98,15 +98,18 @@ class FormLanding extends React.Component {
           <DatePicker picker="Заезд" />
         </Form.Item>
 
-        <Form.Item name={['user', 'introduction']} label="Комментарий к заявке">
+        <Form.Item name={['user', 'introduction']} label="Комментарий">
           <Input.TextArea />
         </Form.Item>
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-          <Button type="primary" htmlType="submit">
+        {/* <Form.Item>
+        <Button type="primary" htmlType="submit">
             Отправить
           </Button>
-        </Form.Item>
+        </Form.Item> */}
       </Form>
+      <ItemButton size="large" type="primary" htmlType="submit">
+            Отправить
+          </ItemButton>
     </Container>
     )
   }
