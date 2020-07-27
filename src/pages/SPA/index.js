@@ -32,7 +32,7 @@ class SPA extends React.Component {
       <Navbar onClick={this.handleClick} toggleMenu={toggleMenu} arr={menu}/>
       <Container>
         <Item>
-        <Row justify="center" align="middle">
+        <Row justify="center" >
           {arr_description.map((item)=> {
             return(
               <Col xm={{span:24}} sm={{span:24}} lg={{span:8}}> 

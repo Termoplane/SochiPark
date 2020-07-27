@@ -40,19 +40,19 @@ let arrLinks = [
     img: images,
     Title: 'Фото',
     SubTitle: 'Текст описания',
-    Link:"/SPA",
+    Link:"/Gallery",
   },
   {
     img: location,
     Title: 'Контакты',
     SubTitle: 'Текст описания',
-    Link:"/SPA",
+    Link:"/Contact",
   },
   {
     img: comment,
     Title: 'Отзывы',
     SubTitle: 'Текст описания',
-    Link:"/SPA",
+    Link:"/Reviews",
   },
 
 ]

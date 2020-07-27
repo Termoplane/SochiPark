@@ -1,5 +1,19 @@
 import React from 'react';
-import {Container, InputContainer, MainContainer, Results, ResultItem} from './styles.js';
+
+
+import {
+Container,
+InputContainer,
+MainContainer,
+Results,
+ResultItem,
+Title,
+ResultSubTitle,
+Label,
+BookingButton,
+} from './styles.js';
+
+
 import "./style.css"
 
 class Calculator extends React.Component{
@@ -50,19 +64,19 @@ class Calculator extends React.Component{
     const {fetching,showResult } = this.state;
     return(
       <MainContainer>
-          <h1> Забронировать номер </h1>
+          <Title> Забронировать номер </Title>
         <form className='form-box'>
           <Container>
             <InputContainer>
-              <label>
+              <Label>
                 Дата заезда
-              </label>
+              </Label>
               <input className='form-control' type='date' id='date'></input>
             </InputContainer>
             <InputContainer>
-              <label>
-                Город
-              </label>
+              <Label>
+                Количество ночей
+              </Label>
               <select className='form-control' id='nights'>
                 <option value='Moscow'> Moscow </option>
                 <option value='Sochi'> Sochi </option>
@@ -74,7 +88,7 @@ class Calculator extends React.Component{
           </Container>
           <Container>
             <InputContainer>
-              <label> Взрослые </label>
+              <Label> Взрослые </Label>
               <select className='form-control' id='adults'>
                 <option> 1 </option>
                 <option> 2 </option>
@@ -83,7 +97,7 @@ class Calculator extends React.Component{
               </select>
             </InputContainer>
             <InputContainer>
-              <label> Дети </label>
+              <Label> Дети </Label>
               <select className='form-control' id='kids'>
                 <option> 1 </option>
                 <option> 2 </option>
@@ -100,8 +114,8 @@ class Calculator extends React.Component{
         </form>
         {!(showResult) &&
           <Results>
-            <h3> Результаты: </h3>
-            {fetching ? <div> Загрузка... </div> :
+            <ResultSubTitle> Результаты: </ResultSubTitle>
+            {this.state.fetching ? <div> Загрузка... </div> :
               <div>
                 <ResultItem>
                   <div className='room'>
@@ -113,15 +127,15 @@ class Calculator extends React.Component{
                     </div>
                   </div>
                   <div className='perPrice'>
-                    <label>Цена за ночь</label>
+                    <Label>Цена за ночь</Label>
                     <div className='price'>2000 руб.</div>
                   </div>
                   <div className='perPrice'>
-                    <label>Общая цена</label>
+                    <Label>Общая цена</Label>
                     <div className='price'>10000 руб.</div>
                   </div>
                   <div className='reserve'>
-                    <button className='reserveButton'>Забронировать</button>
+                    <BookingButton>Забронировать</BookingButton>
                   </div>
                 </ResultItem>
 
@@ -135,15 +149,15 @@ class Calculator extends React.Component{
                     </div>
                   </div>
                   <div className='perPrice'>
-                    <label>Цена за ночь</label>
+                    <Label>Цена за ночь</Label>
                     <div className='price'>3000 руб.</div>
                   </div>
                   <div className='perPrice'>
-                    <label>Общая цена</label>
+                    <Label>Общая цена</Label>
                     <div className='price'>15000 руб.</div>
                   </div>
                   <div className='reserve'>
-                    <button>Забронировать</button>
+                    <BookingButton>Забронировать</BookingButton>
                   </div>
                 </ResultItem> */}
               </div>
@@ -155,4 +169,4 @@ class Calculator extends React.Component{
   }
 }
 
-export default Calculator
+export default Calculator;

@@ -14,37 +14,37 @@ const initialState = {
       icon : spa,
       titleDescription: "Текст описание",
       subTitle: ['текс', 'текст', 'текст', 'текст'],
-      link: 'ссылка'
+      link: '/SPA'
     },
     {
       title: "Туры в отель",
       titleDescription: "Текст описание",
       subTitle: ['текс', 'текст', 'текст', 'текст'],
-      link: 'ссылка'
+      link: '/Tour'
     },
     {
       title: "Питание",
       titleDescription: "Текст описание",
       subTitle: ['текс', 'текст', 'текст', 'текст'],
-      link: 'ссылка'
+      link: '/Food'
     },
     {
       title: "Фото",
       titleDescription: "Текст описание",
       subTitle: ['текс', 'текст', 'текст', 'текст'],
-      link: 'ссылка'
+      link: '/Gallery'
     },
     {
       title: "Контакты",
       titleDescription: "Текст описание",
       subTitle: ['текс', 'текст', 'текст', 'текст'],
-      link: 'ссылка'
+      link: '/Contact'
     },
     {
       title: "Отзывы",
       titleDescription: "Текст описание",
       subTitle: ['текс', 'текст', 'текст', 'текст'],
-      link: 'ссылка'
+      link: '/Reviews'
     },
   ],
 };

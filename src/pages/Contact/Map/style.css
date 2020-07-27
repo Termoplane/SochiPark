@@ -1,0 +1,14 @@
+.mapsSize{
+  display: flex;
+  width: 70%;
+  height: 600px;
+  margin: auto;
+}
+
+@media (max-width: 1136px) {
+  .mapsSize{
+    display: flex;
+    width: 100%;
+    height: 600px;
+  }
+}

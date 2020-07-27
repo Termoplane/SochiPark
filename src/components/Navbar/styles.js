@@ -27,21 +27,21 @@ background-image:url(${logo});
 background-size:cover;
 `
 
-export const Number = styled.div(
+export const Number = styled.a(
   breakpoints({
     xs: css`
       display:none;
-      color:${props => props.show ? '#fff' : '#000' };
+      color:#fff;
       `,
     xxl: css`
       font-size:17px;
       display:block;
-      color:${props => props.show ? '#fff' : '#000' };
+      color:#fff;
     `,
   }),
 );
   
-  export const NumberIcon = styled.div(
+  export const NumberIcon = styled.a(
     breakpoints({
     xs: css`
       background-image:url(${call});
@@ -72,6 +72,14 @@ display:flex;
 justify-content:space-around;
 align-items:center;
 margin:auto;
+${breakpoints({
+    xs: css`
+      flex-direction:column;
+    `,
+    xl: css`
+    flex-direction:row;
+    `
+  })}
 `
 
 export const MenuItem = styled.div`
@@ -88,5 +96,6 @@ font-size:19px;
 export const MenuItemTitle = styled.h2`
 color:#fff;
 letter-spacing: 1px;
+cursor:pointer;
 `
 

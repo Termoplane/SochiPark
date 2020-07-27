@@ -42,17 +42,12 @@ class Navbar extends React.Component{
             for (let check of item.subTitle) {
               name.push(check)  
             };
-
+                console.log(item.link);
             return( 
               <MenuItem key={`${idForMap}`,item.title}>
+                  <Link  onClick={onClick} to={item.link}>
                 <MenuItemTitle>{item.title}</MenuItemTitle>
-              {name.map((i)=> {
-                return (
-                  <div key={`${idForMap}`, item.title}>
-                <MenuItemList>{i}</MenuItemList>
-                  </div>
-                )
-              })}
+                </Link>
               </MenuItem>
             );
           })}
@@ -63,8 +58,8 @@ class Navbar extends React.Component{
         <Header>
           <ToggleMenuButton onClick={onClick} toggleMenu={toggleMenu}/>
           <Link to="/"><Logo/></Link>
-          <Number show={toggleMenu}>8-888-888-88-88</Number>
-          <NumberIcon/>
+          <Number href="tel:+79648945660" show={toggleMenu}>+7 964 894-56-60</Number>
+          <NumberIcon href="tel:+79648945660"/>
         </Header>
       </Container>
       )

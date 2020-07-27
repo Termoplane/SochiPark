@@ -7,21 +7,21 @@ import { Anchor,Descriptions, Badge,Row,Col } from 'antd';
 import Navbar from '../../components/Navbar';
 import Form from '../../components/Form';
 import Footer from '../../components/Footer';
-import Calculator from '../../components/Calculator';
 
+import Maps from './Map'
 
 import { 
   Container, 
-  Title,
-  Description,
   Item,
-  Island,
-  FormContainer,
+  Title,
+  ItemMargin,
+  SubTitle,
 } from './styles';
 
-class Tour extends React.Component {
+class Contact extends React.Component {
   constructor(props){
-    super(props)         
+    super(props)
+    
   }
   
   handleClick = () => {
@@ -36,10 +36,20 @@ class Tour extends React.Component {
       <Navbar onClick={this.handleClick} toggleMenu={toggleMenu} arr={menu}/>
       <Container>
         <Item>
-          <Title><Island/>Туры в Сочи Парк Отель<Island/></Title>
-          <Description>Заполните форму и мы вам предложим туры</Description>
+          <Row justify="center" align="middle">
 
-            <Calculator/>
+            <ItemMargin>
+            <Col sm ={{span:24}} md={{span:24}} >
+              <Row >
+                <Col span={24}><Title>Сочи Парк Отель Контакты</Title></Col>
+                <Col span={24}><SubTitle>Адрес: пр-т. Континентальный, 6</SubTitle></Col>
+                <Col span={24}><SubTitle>Почта: sochiparkhotel.resort@gmail.com</SubTitle></Col>
+                <Col span={24}><SubTitle>Телефон: +7 964 894-56-60</SubTitle></Col>
+              </Row>
+            </Col>
+            </ItemMargin>
+            <Col span={24}><Maps/></Col>
+          </Row>
         </Item>
         <Footer/>
       </Container>
@@ -58,4 +68,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(Tour);
+export default connect(mapStateToProps,mapDispatchToProps)(Contact);
