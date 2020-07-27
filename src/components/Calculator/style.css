@@ -70,14 +70,8 @@
     display: flex;
     align-items:center;
     flex-grow: 3;
-<<<<<<< HEAD
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-=======
     text-align: center;
     margin-left:25px;
->>>>>>> 1751ac2239cae7395e46b0a6ea87a2ef82a630bf
 }
 
 .price {
