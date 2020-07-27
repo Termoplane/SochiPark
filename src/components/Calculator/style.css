@@ -70,7 +70,7 @@ h3 {
 }
 
 .room {
-    flex: 5 0 41.666667%;
+    flex-grow: 5;
     max-width: 41.666667%;
     border-right: 2px dashed #fff;
     text-align: center;
@@ -85,7 +85,9 @@ h3 {
 
 .reserve {
     flex-grow: 3;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
 }
 
 .price {
@@ -99,4 +101,13 @@ h3 {
 
 .roomSpec {
     font-size: 1.2rem;
+}
+
+.reserveButton {
+    padding: 5px 10px;
+    line-height: 35px;
+    background: #36a5f3;
+    color: #fff;
+    border: none;
+    cursor: pointer;
 }

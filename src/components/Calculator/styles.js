@@ -51,9 +51,9 @@ justify-content:center;
 `
 
 export const ResultItem = styled.div`
-display:flex;
-padding:25px;
-border-bottom: 2px dashed #fff;
-box-sizing: border-box;
+  display:flex;
+  padding:25px;
+  border-bottom: 2px dashed #fff;
+  box-sizing: border-box;
 `
 //export const Select = styled.
