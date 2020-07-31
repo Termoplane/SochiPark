@@ -1,4 +1,5 @@
 import React from 'react';
+import cookieClient from 'react-cookie';
 
 
 import {
@@ -15,6 +16,7 @@ BookingButton,
 
 
 import "./style.css"
+//import { Browser } from 'leaflet';
 
 class Calculator extends React.Component{
   constructor(props){
@@ -27,31 +29,38 @@ class Calculator extends React.Component{
   }
   
   componentDidMount() {
-    const auth_url = 'https://login.bgoperator.ru/auth'
+    const auth_url = '/api/login'
     fetch(auth_url, {
       method: 'POST',
-      mode: 'no-cors',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept-Encoding': 'gzip',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept-Encoding': 'gzip, deflate, br',
       },
-      body: {
-        'login': 'ruslan888',
-        'pwd': 'mfUbb.1aR_(Z35',
-      },
-    })
-      .then(response => console.log(response)) 
+      body:'login=ruslan888&pwd=mfUbb.1aR_(Z35',
+    }).then(response => console.log(response))
   }
   
   fetchData = (API_KEY) => {
-    var select = document.getElementById("nights");
-    var value = select.options[select.selectedIndex].value;
-    const url = `http://api.openweathermap.org/data/2.5/weather?q=${value}&appid=${API_KEY}&units=metric`
-    fetch(url)
+    var dateSelect = document.getElementById("date");
+    var adultsSelect = document.getElementById("adults");
+    var kidsSelect = document.getElementById("kids");
+    var nightsSelect = document.getElementById("nights");
+    var nightsValue = nightsSelect.options[nightsSelect.selectedIndex].value;
+    var kidsValue = kidsSelect.value;
+    var adultsValue = adultsSelect.value;
+    var dateValue = dateSelect.value.split('-');
+    var year = dateValue[0];
+    var month = dateValue[1];
+    var day = dateValue[2];
+    var persons = (('0030719840.'.repeat(adultsValue)) + ('0030720150.'.repeat(kidsValue))).slice(0, -1);
+
+    fetch(`/api/bgreq?action=price&tid=211&id_price=-1&flt=100410000050&F4=102610084348&data=${day}.${month}.${year}&f7=${nightsValue}&p=${persons}&xml=11`, {
+      headers: {
+        'Accept-Encoding': 'gzip, deflate, br',
+      },
+    })
       .then(response => response.json())
-      .then(data => this.setState({name: data.name, temp: data.main.temp,
-                                   fetching: false, }))
-      .catch(error => this.setState({ error, isLoading: false }));
+      .then(data => console.log(data))
   }
 
   buttonClickHandle = (e) => {
@@ -78,11 +87,18 @@ class Calculator extends React.Component{
                 Количество ночей
               </Label>
               <select className='form-control' id='nights'>
-                <option value='Moscow'> Moscow </option>
-                <option value='Sochi'> Sochi </option>
-                <option value='Krasnodar'> Krasnodar </option>
-                <option value='London'> London </option>
-                <option value='Paris'> Paris </option>
+                <option value='1'> 1 </option>
+                <option value='2'> 2 </option>
+                <option value='3'> 3 </option>
+                <option value='4'> 4 </option>
+                <option value='6'> 6 </option>
+                <option value='7'> 7 </option>
+                <option value='8'> 8 </option>
+                <option value='9'> 9 </option>
+                <option value='10'> 10 </option>
+                <option value='11'> 11 </option>
+                <option value='12'> 12 </option>
+                <option value='13'> 13 </option>
               </select>
             </InputContainer>
           </Container>
@@ -90,6 +106,7 @@ class Calculator extends React.Component{
             <InputContainer>
               <Label> Взрослые </Label>
               <select className='form-control' id='adults'>
+                <option> 0 </option>
                 <option> 1 </option>
                 <option> 2 </option>
                 <option> 3 </option>
@@ -99,6 +116,7 @@ class Calculator extends React.Component{
             <InputContainer>
               <Label> Дети </Label>
               <select className='form-control' id='kids'>
+                <option> 0 </option>
                 <option> 1 </option>
                 <option> 2 </option>
                 <option> 3 </option>

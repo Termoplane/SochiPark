@@ -13,13 +13,62 @@ import stats from '../build/assets.json';
 
 import configureStore from './redux/configureStore';
 import App from './App';
+import proxy from 'express-http-proxy';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
+
+const cookiesBG = [];
+var day = '';
+var month = '';
+var year = '';
+var nights = '';
+var persons = '';
 
 const server = express();
 server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
+  .use('/api/login', proxy('https://login.bgoperator.ru/auth', {
+      userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
+        for (let i = 0; i < 3; i++) {
+          cookiesBG[i] = proxyRes.headers['set-cookie'][i].split(';')[0];
+        }
+        console.log(cookiesBG)
+        return {}
+      }
+    })
+  )
+  .use('/api/bgreq', (req, res, next) => {
+      day = req.query.data.split('.')[0];
+      month = req.query.data.split('.')[1];
+      year = req.query.data.split('.')[2];
+      nights = req.query.f7;
+      persons = req.query.p;
+      console.log(day, month, year, nights, persons);
+      next()
+    },
+    proxy(`http://export.bgoperator.ru/partners`,
+      {
+        proxyReqPathResolver: function (req) {
+          var parts = req.url.split('?');
+          var queryString = parts[1];
+          var resolvedPath = 'http://export.bgoperator.ru/partners' + (queryString ? '?' + queryString : '');
+          return resolvedPath
+        },
+
+        proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+          proxyReqOpts.headers['Cookie'] = `${cookiesBG.join('; ')}`;
+          console.log(srcReq.url);
+          return proxyReqOpts;
+        },
+
+        userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
+          var data = JSON.parse(proxyResData.toString('utf8'));
+          return data;
+        },
+      }
+    )
+  )
   .get('/*', (req, res) => {
     const sheet = new ServerStyleSheet();
     const store = configureStore({});
