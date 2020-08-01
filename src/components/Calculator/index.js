@@ -25,7 +25,6 @@ class Calculator extends React.Component{
       fetching: true,
       showResult: true,
     };
-    this.API_KEY = "40ca59db933d3e413b91a1495629e17c";
   }
   
   componentDidMount() {
@@ -37,10 +36,10 @@ class Calculator extends React.Component{
         'Accept-Encoding': 'gzip, deflate, br',
       },
       body:'login=ruslan888&pwd=mfUbb.1aR_(Z35',
-    }).then(response => console.log(response))
+    })
   }
   
-  fetchData = (API_KEY) => {
+  fetchData = () => {
     var dateSelect = document.getElementById("date");
     var adultsSelect = document.getElementById("adults");
     var kidsSelect = document.getElementById("kids");
@@ -60,17 +59,19 @@ class Calculator extends React.Component{
       },
     })
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => this.setState({options: data.entries}))
+      .then(() => console.log(this.state.options))
+      .then(() => this.setState({fetching: false}))
   }
 
   buttonClickHandle = (e) => {
     e.preventDefault();
     this.setState({showResult: false});
-    this.fetchData(this.API_KEY);
+    this.fetchData();
   }
   
   render(){
-    const {fetching,showResult } = this.state;
+    const {fetching,showResult, options} = this.state;
     return(
       <MainContainer>
           <Title> Забронировать номер </Title>
@@ -99,6 +100,21 @@ class Calculator extends React.Component{
                 <option value='11'> 11 </option>
                 <option value='12'> 12 </option>
                 <option value='13'> 13 </option>
+                <option value='14'> 14 </option>
+                <option value='15'> 15 </option>
+                <option value='16'> 16 </option>
+                <option value='17'> 17 </option>
+                <option value='18'> 18 </option>
+                <option value='19'> 19 </option>
+                <option value='20'> 20 </option>
+                <option value='21'> 21 </option>
+                <option value='22'> 22 </option>
+                <option value='23'> 23 </option>
+                <option value='24'> 24 </option>
+                <option value='25'> 25 </option>
+                <option value='26'> 26 </option>
+                <option value='27'> 27 </option>
+                <option value='28'> 28 </option>
               </select>
             </InputContainer>
           </Container>
@@ -106,11 +122,16 @@ class Calculator extends React.Component{
             <InputContainer>
               <Label> Взрослые </Label>
               <select className='form-control' id='adults'>
-                <option> 0 </option>
                 <option> 1 </option>
                 <option> 2 </option>
                 <option> 3 </option>
                 <option> 4 </option>
+                <option> 5 </option>
+                <option> 6 </option>
+                <option> 7 </option>
+                <option> 8 </option>
+                <option> 9 </option>
+                <option> 10 </option>
               </select>
             </InputContainer>
             <InputContainer>
@@ -121,6 +142,12 @@ class Calculator extends React.Component{
                 <option> 2 </option>
                 <option> 3 </option>
                 <option> 4 </option>
+                <option> 5 </option>
+                <option> 6 </option>
+                <option> 7 </option>
+                <option> 8 </option>
+                <option> 9 </option>
+                <option> 10 </option>
               </select>
             </InputContainer>
           </Container>
@@ -135,49 +162,29 @@ class Calculator extends React.Component{
             <ResultSubTitle> Результаты: </ResultSubTitle>
             {this.state.fetching ? <div> Загрузка... </div> :
               <div>
-                <ResultItem>
-                  <div className='room'>
-                    <b className='roomSpec'>{this.state.name}</b>
-                    <div>Температура: {this.state.temp}</div>
-                    <div>
-                      <strong>27.07.2020 — 03.08.2020</strong>
-                      <span>(7 ночей)</span>
+                {options.map((options) => (
+                  <ResultItem>
+                    <div className='room'>
+                      <b className='roomSpec'>{options.room}</b>
+                      <div></div>
+                      <div>
+                        <strong>{options.dt}</strong>
+                        <span>({options.duration} ночей)</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className='perPrice'>
-                    <Label>Цена за ночь</Label>
-                    <div className='price'>2000 руб.</div>
-                  </div>
-                  <div className='perPrice'>
-                    <Label>Общая цена</Label>
-                    <div className='price'>10000 руб.</div>
-                  </div>
-                  <div className='reserve'>
-                    <BookingButton>Забронировать</BookingButton>
-                  </div>
-                </ResultItem>
-
-                {/* <ResultItem>
-                  <div className='room'>
-                    <b className='roomSpec'>2-ух местный стандарт с 2 кроватями</b>
-                    <div>Тип питания: завтраки</div>
-                    <div >
-                      <strong >27.07.2020 — 03.08.2020</strong>
-                      <span >(7 ночей)</span>
+                    <div className='perPrice'>
+                      <Label>Цена за ночь</Label>
+                      <div className='price'>{Math.trunc(options.prices[0].amount / options.duration)} руб.</div>
                     </div>
-                  </div>
-                  <div className='perPrice'>
-                    <Label>Цена за ночь</Label>
-                    <div className='price'>3000 руб.</div>
-                  </div>
-                  <div className='perPrice'>
-                    <Label>Общая цена</Label>
-                    <div className='price'>15000 руб.</div>
-                  </div>
-                  <div className='reserve'>
-                    <BookingButton>Забронировать</BookingButton>
-                  </div>
-                </ResultItem> */}
+                    <div className='perPrice'>
+                      <Label>Общая цена</Label>
+                      <div className='price'>{options.prices[0].amount} руб.</div>
+                    </div>
+                    <div className='reserve'>
+                      <BookingButton>Забронировать</BookingButton>
+                    </div>
+                  </ResultItem>
+                ))}
               </div>
             }
           </Results>
