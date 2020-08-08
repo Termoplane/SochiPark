@@ -8,12 +8,14 @@ import { getBundles } from 'react-loadable/webpack';
 import { Capture } from 'react-loadable';
 import serialize from 'serialize-javascript';
 import { Helmet } from 'react-helmet';
+import nodemailer from 'nodemailer';
+import proxy from 'express-http-proxy';
 
 import stats from '../build/assets.json';
 
 import configureStore from './redux/configureStore';
 import App from './App';
-import proxy from 'express-http-proxy';
+
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
@@ -24,10 +26,12 @@ var year = '';
 var nights = '';
 var persons = '';
 
+
 const server = express();
 server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
+  // proxy to bg login and taking needed cookies
   .use('/api/login', proxy('https://login.bgoperator.ru/auth', {
       userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
         for (let i = 0; i < 3; i++) {
@@ -38,6 +42,7 @@ server
       }
     })
   )
+  // endpoint for proxying request from "Поиск номеров" button
   .use('/api/bgreq', (req, res, next) => {
       day = req.query.data.split('.')[0];
       month = req.query.data.split('.')[1];
@@ -49,19 +54,20 @@ server
     },
     proxy(`http://export.bgoperator.ru/partners`,
       {
+        // For correct parameters parsing
         proxyReqPathResolver: function (req) {
           var parts = req.url.split('?');
           var queryString = parts[1];
           var resolvedPath = 'http://export.bgoperator.ru/partners' + (queryString ? '?' + queryString : '');
           return resolvedPath
         },
-
+        // For joining cookies in request to avoid "401 Unauthorized"
         proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
           proxyReqOpts.headers['Cookie'] = `${cookiesBG.join('; ')}`;
           console.log(srcReq.url);
           return proxyReqOpts;
         },
-
+        // Parsing bg server response for user correct output
         userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
           var data = JSON.parse(proxyResData.toString('utf8'));
           return data;
@@ -69,6 +75,31 @@ server
       }
     )
   )
+  // endpoint for feedback form data processing and sending email to owner
+  .use('/api/feedback', express.json(), (req, res) => {
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'easyvape23@gmail.com',
+        pass: 'lrqvwgsdrjfwsyto'
+      }
+    });
+    
+    var mailOptions = {
+      from: `${req.body.email}`,
+      to: 'alex223666@gmail.com',
+      subject: `Новая бронь от ${req.body.name}`,
+      text: `Детали брони:\n${req.body.introduction}\nБронь от ${req.body.name}\nТелефон: ${req.body.phone}\nEmail: ${req.body.email}\nПаспорт: ${req.body.passport}`
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  })
   .get('/*', (req, res) => {
     const sheet = new ServerStyleSheet();
     const store = configureStore({});

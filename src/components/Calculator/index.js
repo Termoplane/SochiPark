@@ -1,6 +1,5 @@
 import React from 'react';
-import cookieClient from 'react-cookie';
-
+import {Spin, Modal, Button, Form, Input, InputNumber} from 'antd';
 
 import {
 Container,
@@ -16,19 +15,65 @@ BookingButton,
 
 
 import "./style.css"
-//import { Browser } from 'leaflet';
+
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
+};
+
+const validateMessages = {
+  required: '${label} is required!',
+  types: {
+    email: '${label} is not validate email!',
+    number: '${label} is not a validate number!',
+  },
+  number: {
+    range: '${label} must be between ${min} and ${max}',
+  },
+};
 
 class Calculator extends React.Component{
+  formRef = React.createRef(); // ref to feedback form to manipulate data in it
   constructor(props){
     super(props)
     this.state = {
-      fetching: true,
-      showResult: true,
+      fetching: true, // is app fetching the biblio globus
+      showResult: true, // biblioglobus response result
+      visible: false, // for modal window with feedback form
+      keys: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], // for mapping with id of biblioglobus result
+      id: 0, // default id for result to manipulate in modal window
+      loadingform: true, // is modal window with form loading in moment
     };
   }
+
+  // onFinish with form in modal window
+  onFinish = () => {
+    this.setState({
+      loadingform: true,
+    })
+  }
   
+  // func to set state loadingform to false and fill form with needed data
+  stoploadingform = () => {
+    this.setState({
+      loadingform: false,
+    });
+    this.onFill();
+  }
+
+  // Runs when user clicks button 'Забронировать'
+  showModal = (e) => {
+    e.preventDefault()
+    this.setState({
+      visible: true, // draw the modal form
+    });
+    this.state.id = e.target.id; // take id of target bookingbutton
+    this.stoploadingform();
+  };
+  
+  // login in biblioglobus to get cookies through SSR proxy
   componentDidMount() {
-    const auth_url = '/api/login'
+    const auth_url = '/api/login' // endpoint that proxy req to biblioglobus login page
     fetch(auth_url, {
       method: 'POST',
       headers: {
@@ -39,6 +84,8 @@ class Calculator extends React.Component{
     })
   }
   
+
+  // func to fetch data from biblioglobus. Runs when user clicks button 'Поиск номеров'
   fetchData = () => {
     var dateSelect = document.getElementById("date");
     var adultsSelect = document.getElementById("adults");
@@ -52,26 +99,84 @@ class Calculator extends React.Component{
     var month = dateValue[1];
     var day = dateValue[2];
     var persons = (('0030719840.'.repeat(adultsValue)) + ('0030720150.'.repeat(kidsValue))).slice(0, -1);
-
+    
+    // Fetching data through ssr proxy endpoint with needed parameters to show correct result
     fetch(`/api/bgreq?action=price&tid=211&id_price=-1&flt=100410000050&F4=102610084348&data=${day}.${month}.${year}&f7=${nightsValue}&p=${persons}&xml=11`, {
       headers: {
         'Accept-Encoding': 'gzip, deflate, br',
       },
     })
       .then(response => response.json())
+      // options state is options of accomodation to operate with
       .then(data => this.setState({options: data.entries}))
-      .then(() => console.log(this.state.options))
+      // stop fetching biblioglobus
       .then(() => this.setState({fetching: false}))
   }
 
+  // func to send form to server endpoint. There smtp sends mail to site owner
+  sendForm = (e) => {
+    e.preventDefault();
+    var feedbackFormData = this.formRef.current.getFieldsValue();
+    console.log(feedbackFormData.name);
+    fetch('api/feedback', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'name': feedbackFormData.name,
+        'phone': feedbackFormData.phone,
+        'passport': feedbackFormData.passport,
+        'email': feedbackFormData.email,
+        'introduction': feedbackFormData.introduction,
+      })
+    })
+    this.handleOk() // confirm button 'send form' is equal to standart ant method handleOk
+  } 
+
+  // Runs when user clicks 'Поиск номеров'
   buttonClickHandle = (e) => {
     e.preventDefault();
-    this.setState({showResult: false});
+    this.setState({
+      showResult: false,
+      fetching: true,
+    });
     this.fetchData();
+  }
+
+  // Form confirm button
+  handleOk = e => {
+    this.setState({
+      loadingform: true,
+      id: 0,
+    });
+    setTimeout(() => {
+      this.setState({ loadingform: false, visible: false });
+    }, 2000);
+    this.formRef.current.resetFields();
+  };
+
+  // happens when user clicks outside modal window
+  handleCancel = e => {
+    console.log(e);
+    this.setState({
+      visible: false,
+      id: 0,
+    });
+    this.formRef.current.resetFields();
+  };
+
+  // func for filling form dynamically
+  onFill = () => {
+    if (!this.state.loadingform) {
+    this.formRef.current.setFieldsValue({
+      introduction: `КОМНАТА: ${this.state.options[this.state.id].room}\nДАТА ЗАЕЗДА: ${this.state.options[this.state.id].dt}\nКОЛИЧЕСТВО ВЗРОСЛЫХ: ${document.getElementById("adults").value}\nКОЛИЧЕСТВО ДЕТЕЙ: ${document.getElementById("kids").value}\nКОЛИЧЕСТВО НОЧЕЙ: ${this.state.options[this.state.id].duration}\nЦЕНА ЗА НОЧЬ: ${Math.trunc(this.state.options[this.state.id].prices[0].amount / this.state.options[this.state.id].duration)} руб.\nОБЩАЯ ЦЕНА: ${this.state.options[this.state.id].prices[0].amount} руб.\n------------------------------------\nОставьте комментарии и пожелания:\n`,
+    })
+    }
   }
   
   render(){
-    const {fetching,showResult, options} = this.state;
+    const {fetching,showResult, options, keys, id} = this.state;
     return(
       <MainContainer>
           <Title> Забронировать номер </Title>
@@ -160,29 +265,99 @@ class Calculator extends React.Component{
         {!(showResult) &&
           <Results>
             <ResultSubTitle> Результаты: </ResultSubTitle>
-            {this.state.fetching ? <div> Загрузка... </div> :
-              <div>
-                {options.map((options) => (
+            {this.state.fetching ? <Spin> </Spin> :
+              <div className='resultItems'>
+                {options.map((option, keys) => (
                   <ResultItem>
                     <div className='room'>
-                      <b className='roomSpec'>{options.room}</b>
+                      <b className='roomSpec'>{option.room}</b>
                       <div></div>
                       <div>
-                        <strong>{options.dt}</strong>
-                        <span>({options.duration} ночей)</span>
+                        <strong>{option.dt}</strong>
+                        <span>({option.duration} ночей)</span>
                       </div>
                     </div>
                     <div className='perPrice'>
                       <Label>Цена за ночь</Label>
-                      <div className='price'>{Math.trunc(options.prices[0].amount / options.duration)} руб.</div>
+                      <div className='price'>{Math.trunc(option.prices[0].amount / option.duration)} руб.</div>
                     </div>
                     <div className='perPrice'>
                       <Label>Общая цена</Label>
-                      <div className='price'>{options.prices[0].amount} руб.</div>
+                      <div className='price'>{option.prices[0].amount} руб.</div>
                     </div>
                     <div className='reserve'>
-                      <BookingButton>Забронировать</BookingButton>
+                      <BookingButton onClick={this.showModal} id={keys}>Забронировать</BookingButton>
                     </div>
+                    <Modal
+                      title="Забронировать"
+                      visible={this.state.visible}
+                      onOk={this.handleOk}
+                      onCancel={this.handleCancel}
+                      footer={null}
+                    >
+                    {this.state.loadingform ? <Spin>Отправка</Spin> :
+                      <Form {...layout} ref={this.formRef} name="nest-messages" validateMessages={validateMessages} onFinish={this.onFinish}>
+                        <Form.Item
+                          name={'name'}
+                          label="ФИО"
+                          rules={[
+                            {
+                              required: true,
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                        <Form.Item
+                          name='phone'
+                          label='Ваш телефон'
+                          rules = {[
+                            {
+                              required: true,                             
+                            }
+                          ]}
+                        >                         
+                          <Input placeholder='+79xxxxxxxxx' />
+                        </Form.Item>
+                        <Form.Item
+                          name='passport'
+                          label='Серия номер паспорта'
+                          rules = {[
+                            {
+                              required: true,                             
+                            }
+                          ]}
+                        >
+                        <Input placeholder='xxxx xxxxxx' />
+                        </Form.Item>
+                        <Form.Item
+                          name={'email'}
+                          label="Email"
+                          rules={[
+                            {
+                              type: 'email',
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                        <Form.Item 
+                          name='introduction' 
+                          label="Описание"
+                          initialValue={`КОМНАТА: ${options[this.state.id].room}\nДАТА ЗАЕЗДА: ${options[this.state.id].dt}\nКОЛИЧЕСТВО ВЗРОСЛЫХ: ${document.getElementById("adults").value}\nКОЛИЧЕСТВО ДЕТЕЙ: ${document.getElementById("kids").value}\nКОЛИЧЕСТВО НОЧЕЙ: ${options[this.state.id].duration}\nЦЕНА ЗА НОЧЬ: ${Math.trunc(options[this.state.id].prices[0].amount / options[this.state.id].duration)} руб.\nОБЩАЯ ЦЕНА: ${options[this.state.id].prices[0].amount} руб.\n------------------------------------\nОставьте комментарии и пожелания:\n`}
+                          >
+                          <Input.TextArea
+                            autoSize={{ minRows: 6, maxRows: 40 }}>
+                          </Input.TextArea> 
+                        </Form.Item>
+                        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+                          <Button type="primary" htmlType="submit" onClick={this.sendForm}>
+                            Отправить данные
+                          </Button>
+                        </Form.Item>
+                      </Form>
+                    }
+                    </Modal>
                   </ResultItem>
                 ))}
               </div>

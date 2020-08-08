@@ -46,13 +46,28 @@ export const Results = styled.div`
 justify-content:center;
 `
 
-export const ResultItem = styled.div`
-display:flex;
-padding:25px;
-border-bottom: 2px dashed #fff;
-box-sizing: border-box;
-margin-bottom:25px;
-`
+export const ResultItem = styled.div(
+  breakpoints({
+    xs: css`
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 25px;
+      align-items: center;
+      border-bottom: 2px dashed #f5f2f0;
+      box-sizing: border-box;
+      margin-bottom: 25px;
+    `,
+    lg: css`
+      display: flex;
+      flex-direction: row;
+      padding: 25px;
+      border-bottom: 2px dashed #f5f2f0;
+      box-sizing: border-box;
+      margin-bottom: 25px;
+    `,
+  }),
+);
 
 export const Title = styled.h2`
 margin-bottom:25px;
@@ -79,6 +94,7 @@ export const BookingButton = styled.div`
   padding:5px;
   background-color: #36a5f3;
   color: #fff;
+  cursor: pointer;
   &:hover{
     background-color: #2180c3;
   }

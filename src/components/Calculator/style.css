@@ -1,7 +1,7 @@
 .form-box {
     box-sizing: border-box;
     display: block;
-    background-color: #fffff0;
+    background-color: #fcfcfc;
     padding-left: 15px;
     padding-right: 15px;
     border-radius: 15px;
@@ -14,7 +14,23 @@
     .form-box {
       width:100%;
     }
+    .resultItems {
+      width:100%;
+    }
   }
+
+@media only screen and (min-width: 768px) {
+    .perPrice {
+        border-right: 2px dashed #f5f2f0;
+    }
+    .room {
+        border-right: 2px dashed #f5f2f0;
+    }
+    .reserve {
+        margin-left: 20px;
+    }
+}
+
 
 .form-control {
     padding: 10px;
@@ -53,25 +69,20 @@
 }
 
 .room {
-    flex-grow: 5;
-    max-width: 41.666667%;
-    border-right: 2px dashed #fff;
+    flex: 0 0 41.666667%;
     text-align: center;
 }
 
 .perPrice {
     display: block;
     flex-grow: 2;
-    border-right: 2px dashed #fff;
     text-align: center;
 }
 
 .reserve {
-    display: flex;
-    align-items:center;
-    flex-grow: 3;
     text-align: center;
-    margin-left:25px;
+    align-self: center;
+    margin-top: 20px;
 }
 
 .price {
@@ -87,11 +98,14 @@
     font-size: 1.2rem;
 }
 
-.reserveButton {
-    padding: 5px 10px;
-    line-height: 35px;
-    background: #36a5f3;
-    color: #fff;
-    border: none;
-    cursor: pointer;
+.resultItems {
+    box-sizing: border-box;
+    display: block;
+    background-color: #fcfcfc;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 15px;
+    box-shadow: 2px 3px 26px 0px rgba(0,0,0,0.25);
+    width:95%;
+    margin: auto;
 }
