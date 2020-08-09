@@ -24,9 +24,9 @@ const FeedbackForm = (props) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        'name': val.adults,
-        'phone': val.phone,
-        'passport': val.passport,
+        'name': Object.assign(val.adults, val.kids),
+        'phone': val.phones,
+        'passport': Object.assign(val.passports, val.kidspassports),
         'email': val.email,
         'introduction': val.introduction,
       })
@@ -66,30 +66,83 @@ const FeedbackForm = (props) => {
           ))}
           </div>
       )}
-      </Form.List>      
-    <Form.Item
-        name='phone'
-        label='Ваш телефон'
-        rules = {[
-        {
-            required: true,                             
-        }
-        ]}
-    >                         
-        <Input placeholder='+79xxxxxxxxx' />
-    </Form.Item>
-
-    <Form.Item
-        name='passport'
-        label='Серия номер паспорта'
-        rules = {[
-        {
-            required: true,                             
-        }
-        ]}
-    >
-    <Input placeholder='xxxx xxxxxx' />
-    </Form.Item>
+      </Form.List> 
+      <Form.List name='passports'>
+        {(fields) => (
+          <div>
+          {adultslist.map(adult => (
+              <Form.Item {...adult}
+                name={`passport${adult}`}
+                label={`Серия номер паспорта человека ${adult}`}
+                rules={[
+                {
+                    required: true,
+                },
+                ]}
+              >
+                <Input placeholder='хххх хххххх' />
+              </Form.Item>
+          ))}
+          </div>
+      )}
+      </Form.List>
+      <Form.List name='phones'>
+        {(fields) => (
+          <div>
+          {adultslist.map(adult => (
+              <Form.Item {...adult}
+                name={`phone${adult}`}
+                label={`Телефон ${adult}`}
+                rules={[
+                {
+                    required: false,
+                },
+                ]}
+              >
+                <Input placeholder='+79xxxxxxxxx' />
+              </Form.Item>
+          ))}
+          </div>
+      )}
+      </Form.List>
+      <Form.List name='kids'>
+        {(fields) => (
+          <div>
+          {kidslist.map(kid => (
+              <Form.Item {...kid}
+                name={`kidname${kid}`}
+                label={`ФИО Ребенка ${kid}`}
+                rules={[
+                {
+                    required: true,
+                },
+                ]}
+              >
+                <Input placeholder='Фамилия Имя Отчество' />
+              </Form.Item>
+          ))}
+          </div>
+      )}
+      </Form.List>
+      <Form.List name='kidspassports'>
+        {(fields) => (
+          <div>
+          {kidslist.map(kid => (
+              <Form.Item {...kid}
+                name={`kidpassport${kid}`}
+                label={`Свидетельство о рождении ${kid}`}
+                rules={[
+                {
+                    required: true,
+                },
+                ]}
+              >
+                <Input placeholder='VII-МЮ 123456' />
+              </Form.Item>
+          ))}
+          </div>
+      )}
+      </Form.List>           
 
     <Form.Item
         name={'email'}

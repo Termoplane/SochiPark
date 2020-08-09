@@ -89,7 +89,7 @@ server
       from: `${req.body.email}`,
       to: 'alex223666@gmail.com',
       subject: `Новая бронь от ${Object.values(req.body.name)[0]}`,
-      text: `Детали брони:\n${req.body.introduction}\nБронь от ${Object.values(req.body.name).join(', ')}\nТелефон: ${req.body.phone}\nEmail: ${req.body.email}\nПаспорт: ${req.body.passport}`
+      text: `Детали брони:\n${req.body.introduction}\nБронь от ${Object.values(req.body.name).join(', \n\t')}\nТелефон: ${Object.values(req.body.phone).join(', \n\t')}\nEmail: ${req.body.email}\nПаспорт: ${Object.values(req.body.passport).join(', \n\t')}`
     };
 
     transporter.sendMail(mailOptions, function(error, info){
