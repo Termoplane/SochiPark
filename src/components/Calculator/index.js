@@ -1,6 +1,8 @@
 import React from 'react';
 import {Spin, Modal, Button, Form, Input, InputNumber} from 'antd';
 
+import FeedbackForm from '../FeedbackForm'
+
 import {
 Container,
 InputContainer,
@@ -15,22 +17,6 @@ BookingButton,
 
 
 import "./style.css"
-
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-
-const validateMessages = {
-  required: '${label} is required!',
-  types: {
-    email: '${label} is not validate email!',
-    number: '${label} is not a validate number!',
-  },
-  number: {
-    range: '${label} must be between ${min} and ${max}',
-  },
-};
 
 class Calculator extends React.Component{
   //formRef = React.createRef(); // ref to feedback form to manipulate data in it
@@ -48,53 +34,29 @@ class Calculator extends React.Component{
       nightsValue: 1,
       dateValue: 0,
     };
-    this.formRef = React.createRef();
-  }
-
-  // onFinish with form in modal window
-  onFinish = (val) => {
-    console.log(val)
-    var feedbackFormData = this.formRef.current.getFieldsValue();
-    console.log(feedbackFormData.name);
-    fetch('api/feedback', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        'name': feedbackFormData.name,
-        'phone': feedbackFormData.phone,
-        'passport': feedbackFormData.passport,
-        'email': feedbackFormData.email,
-        'introduction': feedbackFormData.introduction,
-      })
-    })
-
-    this.setState({
-      loadingform: true,
-      id: 0,
-    });
-    setTimeout(() => {
-      this.setState({ loadingform: false, visible: false });
-    }, 2000);
-    this.formRef.current.resetFields();
   }
   
   // func to set state loadingform to false and fill form with needed data
-  stoploadingform = () => {
+  doloadingform = () => {
     this.setState({
-      loadingform: false,
+      loadingform: true,
     });
+  }
+
+  formtimeout = () => {
+    setTimeout(() => {
+      this.setState({ loadingform: false, visible: false });
+    }, 2000);
   }
 
   // Runs when user clicks button 'Забронировать'
   showModal = (e) => {
     e.preventDefault()
     this.setState({
-      visible: true, // draw the modal form
+      visible: true,
+      loadingform: false, // draw the modal form
     });
     this.state.id = e.target.id; // take id of target bookingbutton
-    this.stoploadingform();
   };
   
   // login in biblioglobus to get cookies through SSR proxy
@@ -147,12 +109,9 @@ class Calculator extends React.Component{
 
   // happens when user clicks outside modal window
   handleCancel = e => {
-    console.log(e);
     this.setState({
       visible: false,
-      id: 0,
     });
-    this.formRef.current.resetFields();
   };
   
   render(){
@@ -276,72 +235,7 @@ class Calculator extends React.Component{
                       footer={null}
                     >
                     {this.state.loadingform ? <Spin>Отправка</Spin> :
-                      <Form {...layout} ref={this.formRef} name="nest-messages" validateMessages={validateMessages} onFinish={this.onFinish}>
-                        
-                        <Form.Item
-                          name={'name'}
-                          label="ФИО"
-                          rules={[
-                            {
-                              required: true,
-                            },
-                          ]}
-                        >
-                          <Input placeholder='Фамилия Имя Отчество' />
-                        </Form.Item>
-
-                        <Form.Item
-                          name='phone'
-                          label='Ваш телефон'
-                          rules = {[
-                            {
-                              required: true,                             
-                            }
-                          ]}
-                        >                         
-                          <Input placeholder='+79xxxxxxxxx' />
-                        </Form.Item>
-
-                        <Form.Item
-                          name='passport'
-                          label='Серия номер паспорта'
-                          rules = {[
-                            {
-                              required: true,                             
-                            }
-                          ]}
-                        >
-                        <Input placeholder='xxxx xxxxxx' />
-                        </Form.Item>
-
-                        <Form.Item
-                          name={'email'}
-                          label="Email"
-                          rules={[
-                            {
-                              type: 'email',
-                            },
-                          ]}
-                        >
-                          <Input />
-                        </Form.Item>
-
-                        <Form.Item 
-                          name='introduction' 
-                          label="Описание"
-                          initialValue={`КОМНАТА: ${options[this.state.id].room}\nДАТА ЗАЕЗДА: ${options[this.state.id].dt}\nКОЛИЧЕСТВО ВЗРОСЛЫХ: ${adultsValue}\nКОЛИЧЕСТВО ДЕТЕЙ: ${kidsValue}\nКОЛИЧЕСТВО НОЧЕЙ: ${options[this.state.id].duration}\nЦЕНА ЗА НОЧЬ: ${Math.trunc(options[this.state.id].prices[0].amount / options[this.state.id].duration)} руб.\nОБЩАЯ ЦЕНА: ${options[this.state.id].prices[0].amount} руб.\n------------------------------------\nОставьте комментарии и пожелания:\n`}
-                          >
-                          <Input.TextArea
-                            autoSize={{ minRows: 6, maxRows: 40 }}>
-                          </Input.TextArea> 
-                        </Form.Item>
-
-                        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                          <Button type="primary" htmlType="submit" onClick={this.sendForm}>
-                            Отправить данные
-                          </Button>
-                        </Form.Item>
-                      </Form>
+                      <FeedbackForm adults={adultsValue} kids ={kidsValue} formtimeout={this.formtimeout} doloadingform={this.doloadingform} text={`КОМНАТА: ${options[this.state.id].room}\nДАТА ЗАЕЗДА: ${options[this.state.id].dt}\nКОЛИЧЕСТВО ВЗРОСЛЫХ: ${adultsValue}\nКОЛИЧЕСТВО ДЕТЕЙ: ${kidsValue}\nКОЛИЧЕСТВО НОЧЕЙ: ${options[this.state.id].duration}\nЦЕНА ЗА НОЧЬ: ${Math.trunc(options[this.state.id].prices[0].amount / options[this.state.id].duration)} руб.\nОБЩАЯ ЦЕНА: ${options[this.state.id].prices[0].amount} руб.\n------------------------------------\nОставьте комментарии и пожелания:\n`} />
                     }
                     </Modal>
                   </ResultItem>

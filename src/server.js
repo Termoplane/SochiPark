@@ -88,8 +88,8 @@ server
     var mailOptions = {
       from: `${req.body.email}`,
       to: 'alex223666@gmail.com',
-      subject: `Новая бронь от ${req.body.name}`,
-      text: `Детали брони:\n${req.body.introduction}\nБронь от ${req.body.name}\nТелефон: ${req.body.phone}\nEmail: ${req.body.email}\nПаспорт: ${req.body.passport}`
+      subject: `Новая бронь от ${Object.values(req.body.name)[0]}`,
+      text: `Детали брони:\n${req.body.introduction}\nБронь от ${Object.values(req.body.name).join(', ')}\nТелефон: ${req.body.phone}\nEmail: ${req.body.email}\nПаспорт: ${req.body.passport}`
     };
 
     transporter.sendMail(mailOptions, function(error, info){
