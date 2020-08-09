@@ -33,7 +33,7 @@ const validateMessages = {
 };
 
 class Calculator extends React.Component{
-  formRef = React.createRef(); // ref to feedback form to manipulate data in it
+  //formRef = React.createRef(); // ref to feedback form to manipulate data in it
   constructor(props){
     super(props)
     this.state = {
@@ -43,14 +43,41 @@ class Calculator extends React.Component{
       keys: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], // for mapping with id of biblioglobus result
       id: 0, // default id for result to manipulate in modal window
       loadingform: true, // is modal window with form loading in moment
+      kidsValue: 0,
+      adultsValue: 1,
+      nightsValue: 1,
+      dateValue: 0,
     };
+    this.formRef = React.createRef();
   }
 
   // onFinish with form in modal window
-  onFinish = () => {
+  onFinish = (val) => {
+    console.log(val)
+    var feedbackFormData = this.formRef.current.getFieldsValue();
+    console.log(feedbackFormData.name);
+    fetch('api/feedback', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'name': feedbackFormData.name,
+        'phone': feedbackFormData.phone,
+        'passport': feedbackFormData.passport,
+        'email': feedbackFormData.email,
+        'introduction': feedbackFormData.introduction,
+      })
+    })
+
     this.setState({
       loadingform: true,
-    })
+      id: 0,
+    });
+    setTimeout(() => {
+      this.setState({ loadingform: false, visible: false });
+    }, 2000);
+    this.formRef.current.resetFields();
   }
   
   // func to set state loadingform to false and fill form with needed data
@@ -58,7 +85,6 @@ class Calculator extends React.Component{
     this.setState({
       loadingform: false,
     });
-    this.onFill();
   }
 
   // Runs when user clicks button 'Забронировать'
@@ -83,18 +109,13 @@ class Calculator extends React.Component{
       body:'login=ruslan888&pwd=mfUbb.1aR_(Z35',
     })
   }
-  
 
   // func to fetch data from biblioglobus. Runs when user clicks button 'Поиск номеров'
   fetchData = () => {
-    var dateSelect = document.getElementById("date");
-    var adultsSelect = document.getElementById("adults");
-    var kidsSelect = document.getElementById("kids");
-    var nightsSelect = document.getElementById("nights");
-    var nightsValue = nightsSelect.options[nightsSelect.selectedIndex].value;
-    var kidsValue = kidsSelect.value;
-    var adultsValue = adultsSelect.value;
-    var dateValue = dateSelect.value.split('-');
+    var nightsValue = String(this.state.nightsValue);
+    var kidsValue = this.state.kidsValue;
+    var adultsValue = this.state.adultsValue;
+    var dateValue = this.state.dateValue.split('-');
     var year = dateValue[0];
     var month = dateValue[1];
     var day = dateValue[2];
@@ -113,27 +134,6 @@ class Calculator extends React.Component{
       .then(() => this.setState({fetching: false}))
   }
 
-  // func to send form to server endpoint. There smtp sends mail to site owner
-  sendForm = (e) => {
-    e.preventDefault();
-    var feedbackFormData = this.formRef.current.getFieldsValue();
-    console.log(feedbackFormData.name);
-    fetch('api/feedback', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        'name': feedbackFormData.name,
-        'phone': feedbackFormData.phone,
-        'passport': feedbackFormData.passport,
-        'email': feedbackFormData.email,
-        'introduction': feedbackFormData.introduction,
-      })
-    })
-    this.handleOk() // confirm button 'send form' is equal to standart ant method handleOk
-  } 
-
   // Runs when user clicks 'Поиск номеров'
   buttonClickHandle = (e) => {
     e.preventDefault();
@@ -142,19 +142,8 @@ class Calculator extends React.Component{
       fetching: true,
     });
     this.fetchData();
+    //this.formRef = React.createRef();
   }
-
-  // Form confirm button
-  handleOk = e => {
-    this.setState({
-      loadingform: true,
-      id: 0,
-    });
-    setTimeout(() => {
-      this.setState({ loadingform: false, visible: false });
-    }, 2000);
-    this.formRef.current.resetFields();
-  };
 
   // happens when user clicks outside modal window
   handleCancel = e => {
@@ -165,18 +154,9 @@ class Calculator extends React.Component{
     });
     this.formRef.current.resetFields();
   };
-
-  // func for filling form dynamically
-  onFill = () => {
-    if (!this.state.loadingform) {
-    this.formRef.current.setFieldsValue({
-      introduction: `КОМНАТА: ${this.state.options[this.state.id].room}\nДАТА ЗАЕЗДА: ${this.state.options[this.state.id].dt}\nКОЛИЧЕСТВО ВЗРОСЛЫХ: ${document.getElementById("adults").value}\nКОЛИЧЕСТВО ДЕТЕЙ: ${document.getElementById("kids").value}\nКОЛИЧЕСТВО НОЧЕЙ: ${this.state.options[this.state.id].duration}\nЦЕНА ЗА НОЧЬ: ${Math.trunc(this.state.options[this.state.id].prices[0].amount / this.state.options[this.state.id].duration)} руб.\nОБЩАЯ ЦЕНА: ${this.state.options[this.state.id].prices[0].amount} руб.\n------------------------------------\nОставьте комментарии и пожелания:\n`,
-    })
-    }
-  }
   
   render(){
-    const {fetching,showResult, options, keys, id} = this.state;
+    const {fetching, showResult, options, keys, id, kidsValue, adultsValue} = this.state;
     return(
       <MainContainer>
           <Title> Забронировать номер </Title>
@@ -186,17 +166,18 @@ class Calculator extends React.Component{
               <Label>
                 Дата заезда
               </Label>
-              <input className='form-control' type='date' id='date'></input>
+              <input className='form-control' type='date' id='date' onChange={(e) => {this.setState({dateValue: e.target.value})}}></input>
             </InputContainer>
             <InputContainer>
               <Label>
                 Количество ночей
               </Label>
-              <select className='form-control' id='nights'>
+              <select className='form-control' id='nights' onChange={(e) => {this.setState({nightsValue: e.target.value})}}>
                 <option value='1'> 1 </option>
                 <option value='2'> 2 </option>
                 <option value='3'> 3 </option>
                 <option value='4'> 4 </option>
+                <option value='5'> 5 </option>
                 <option value='6'> 6 </option>
                 <option value='7'> 7 </option>
                 <option value='8'> 8 </option>
@@ -226,7 +207,7 @@ class Calculator extends React.Component{
           <Container>
             <InputContainer>
               <Label> Взрослые </Label>
-              <select className='form-control' id='adults'>
+              <select className='form-control' id='adults' onChange={(e) => {this.setState({adultsValue: e.target.value})}}>
                 <option> 1 </option>
                 <option> 2 </option>
                 <option> 3 </option>
@@ -241,7 +222,7 @@ class Calculator extends React.Component{
             </InputContainer>
             <InputContainer>
               <Label> Дети </Label>
-              <select className='form-control' id='kids'>
+              <select className='form-control' id='kids' onChange={(e) => {this.setState({kidsValue: e.target.value})}}>
                 <option> 0 </option>
                 <option> 1 </option>
                 <option> 2 </option>
@@ -291,12 +272,12 @@ class Calculator extends React.Component{
                     <Modal
                       title="Забронировать"
                       visible={this.state.visible}
-                      onOk={this.handleOk}
                       onCancel={this.handleCancel}
                       footer={null}
                     >
                     {this.state.loadingform ? <Spin>Отправка</Spin> :
                       <Form {...layout} ref={this.formRef} name="nest-messages" validateMessages={validateMessages} onFinish={this.onFinish}>
+
                         <Form.Item
                           name={'name'}
                           label="ФИО"
@@ -306,8 +287,9 @@ class Calculator extends React.Component{
                             },
                           ]}
                         >
-                          <Input />
+                          <Input placeholder='Фамилия Имя Отчество' />
                         </Form.Item>
+
                         <Form.Item
                           name='phone'
                           label='Ваш телефон'
@@ -319,6 +301,7 @@ class Calculator extends React.Component{
                         >                         
                           <Input placeholder='+79xxxxxxxxx' />
                         </Form.Item>
+
                         <Form.Item
                           name='passport'
                           label='Серия номер паспорта'
@@ -330,6 +313,7 @@ class Calculator extends React.Component{
                         >
                         <Input placeholder='xxxx xxxxxx' />
                         </Form.Item>
+
                         <Form.Item
                           name={'email'}
                           label="Email"
@@ -341,15 +325,17 @@ class Calculator extends React.Component{
                         >
                           <Input />
                         </Form.Item>
+
                         <Form.Item 
                           name='introduction' 
                           label="Описание"
-                          initialValue={`КОМНАТА: ${options[this.state.id].room}\nДАТА ЗАЕЗДА: ${options[this.state.id].dt}\nКОЛИЧЕСТВО ВЗРОСЛЫХ: ${document.getElementById("adults").value}\nКОЛИЧЕСТВО ДЕТЕЙ: ${document.getElementById("kids").value}\nКОЛИЧЕСТВО НОЧЕЙ: ${options[this.state.id].duration}\nЦЕНА ЗА НОЧЬ: ${Math.trunc(options[this.state.id].prices[0].amount / options[this.state.id].duration)} руб.\nОБЩАЯ ЦЕНА: ${options[this.state.id].prices[0].amount} руб.\n------------------------------------\nОставьте комментарии и пожелания:\n`}
+                          initialValue={`КОМНАТА: ${options[this.state.id].room}\nДАТА ЗАЕЗДА: ${options[this.state.id].dt}\nКОЛИЧЕСТВО ВЗРОСЛЫХ: ${adultsValue}\nКОЛИЧЕСТВО ДЕТЕЙ: ${kidsValue}\nКОЛИЧЕСТВО НОЧЕЙ: ${options[this.state.id].duration}\nЦЕНА ЗА НОЧЬ: ${Math.trunc(options[this.state.id].prices[0].amount / options[this.state.id].duration)} руб.\nОБЩАЯ ЦЕНА: ${options[this.state.id].prices[0].amount} руб.\n------------------------------------\nОставьте комментарии и пожелания:\n`}
                           >
                           <Input.TextArea
                             autoSize={{ minRows: 6, maxRows: 40 }}>
                           </Input.TextArea> 
                         </Form.Item>
+
                         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                           <Button type="primary" htmlType="submit" onClick={this.sendForm}>
                             Отправить данные
