@@ -277,7 +277,7 @@ class Calculator extends React.Component{
                     >
                     {this.state.loadingform ? <Spin>Отправка</Spin> :
                       <Form {...layout} ref={this.formRef} name="nest-messages" validateMessages={validateMessages} onFinish={this.onFinish}>
-
+                        
                         <Form.Item
                           name={'name'}
                           label="ФИО"
