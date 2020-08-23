@@ -13,7 +13,16 @@ export const Item = styled.div`
 `
 
 export const ItemCard = styled(Card)`
-margin:25px!important;
+
+${breakpoints({
+      xs: css`
+        margin:auto!important;
+        margin-bottom:25px!important;
+      `,
+      xl: css`
+        margin:25px!important;
+      `
+    })}
 `
 
 export const Link = styled.a`

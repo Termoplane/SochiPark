@@ -1,5 +1,5 @@
-import styled, {css} from '@xstyled/styled-components';
-import { breakpoints } from '@xstyled/system';
+import styled, { css } from '@xstyled/styled-components';
+import { breakpoints } from '@xstyled/system'
 
 
 export const Container = styled.div`
@@ -31,7 +31,8 @@ padding:10px;
 `
 
 export const Icon = styled.div`
-  /* background-image: ${props => url(`${props.icon}`)}; */
+  background-image: ${(props) => `url(${props.icon})`};
+  /* background-image: ${props => console.log(props.icon)}; */
   width:30px;
   height:30px;
   background-size:cover;

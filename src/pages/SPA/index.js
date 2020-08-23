@@ -35,10 +35,11 @@ class SPA extends React.Component {
         <Item>
         <Row justify="center" >
           {arr_description.map((item)=> {
+            // console.log(item.icon);
             return(
               <Col xm={{span:24}} sm={{span:24}} lg={{span:8}}> 
               <Title>
-                {/* <Icon icon={item.icon}/> */}
+                <Icon icon={item.icon}/>
                 {item.title}
               </Title>
 

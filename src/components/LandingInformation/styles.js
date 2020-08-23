@@ -9,8 +9,17 @@ export const Container = styled.div`
   display:flex;
   align-items:center;
   justify-content:center;
-  margin-top:70px;
-  margin-bottom:100px;
+
+  ${breakpoints({
+      xs: css`
+      margin-top:0px;
+      margin-bottom:40px;
+      `,
+      lg: css`
+      margin-top:70px;
+      margin-bottom:100px;
+      `
+    })}
   
 `
 export const ItemContainer = styled.div(
@@ -68,7 +77,7 @@ export const ItemText = styled.div(
       flex-direction:column;
       justify-content: space-evenly;
       align-items: flex-end;
-      padding:20px;
+      padding:10px;
       `,
     lg: css`
       width:60%;

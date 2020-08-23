@@ -54,7 +54,7 @@ import {
   Container,
 } from './styles.js'
 
-function Photo() {
+function Photo(props) {
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
@@ -70,13 +70,13 @@ function Photo() {
 
   return (
     <Container>
-      <Gallery photos={photos} onClick={openLightbox} />
+      <Gallery photos={props.photos} onClick={openLightbox} />
       <ModalGateway>
         {viewerIsOpen ? (
           <Modal onClose={closeLightbox}>
             <Carousel
               currentIndex={currentImage}
-              views={photos.map(x => ({
+              views={props.photos.map(x => ({
                 ...x,
                 srcset: x.srcSet,
                 caption: x.title
@@ -88,4 +88,9 @@ function Photo() {
     </Container>
   );
 }
+
+Photo.defaultProps = {
+  photos: []
+}
+
 export default Photo;

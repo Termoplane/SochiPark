@@ -17,7 +17,6 @@ const FeedbackForm = (props) => {
   })
 
   const onFinish = (val) => {
-    console.log(val);
     fetch('api/feedback', {
       method: 'POST',
       headers: {
@@ -58,6 +57,7 @@ const FeedbackForm = (props) => {
                 rules={[
                 {
                     required: true,
+                    message: 'Обязательно к заполнению'
                 },
                 ]}
               >
@@ -77,6 +77,7 @@ const FeedbackForm = (props) => {
                 rules={[
                 {
                     required: true,
+                    message: 'Обязательно к заполнению'
                 },
                 ]}
               >
@@ -115,6 +116,7 @@ const FeedbackForm = (props) => {
                 rules={[
                 {
                     required: true,
+                    message: 'Обязательно к заполнению'
                 },
                 ]}
               >
@@ -134,6 +136,7 @@ const FeedbackForm = (props) => {
                 rules={[
                 {
                     required: true,
+                    message: 'Обязательно к заполнению'
                 },
                 ]}
               >

@@ -60,7 +60,7 @@ class Reviews extends React.Component {
                 </ItemCard>
             </Col>
             <Col xs={{span:24}} lg={{span:6}} offset={2}>
-                <ItemCard style={{ width: 300 }}>
+                <ItemCard style={{ width: 230 }}>
                   <Meta
                     avatar={<Avatar src="https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f1/79/default-avatar-2020-21.jpg" />}
                     title="хороший семейны отель"

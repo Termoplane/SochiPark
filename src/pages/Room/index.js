@@ -7,8 +7,7 @@ import { Anchor,Descriptions, Badge,Row,Col } from 'antd';
 import Navbar from '../../components/Navbar';
 import Form from '../../components/Form';
 import Footer from '../../components/Footer';
-
-import Photo from './components/Photo'
+import Photo from '../../components/Photo'
 import Calculator from '../../components/Calculator'
 
 
@@ -66,7 +65,7 @@ function Room(props) {
             {currentRoom[0].description}
           </Description>
           <ContainerPhoto>
-            <Photo photo={currentRoom[0].photos}/>
+            <Photo photos={currentRoom[0].photos}/>
           </ContainerPhoto>
           <Calculator/>
         </Item>

@@ -12,8 +12,10 @@ export const Container = styled.div`
   ${breakpoints({
     xs: css`
     height: auto;
+    margin-top:140px;
     `,
-    xxl: css`
+    lg: css`
+    margin-top:unset;
     height: 400px;
     `
   })}

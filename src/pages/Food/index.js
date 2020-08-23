@@ -9,6 +9,16 @@ import Footer from '../../components/Footer';
 import Calculator from '../../components/Calculator';
 import Photo from '../../components/Photo'
 
+import bamboo from './images/bamboo.jpg'
+import Basilico from './images/Basilico.jpg'
+import BonAppeti from './images/BonAppeti.jpg'
+import bruderschaft from './images/bruderschaft.jpg'
+import domashnij from './images/domashnij.jpg'
+import GrafOrlov from './images/GrafOrlov.jpg'
+import lobbi from './images/lobbi.jpg'
+import malina from './images/malina.jpg'
+import troeVLodke from './images/troeVLodke.jpg'
+
 
 import { 
   Container, 
@@ -20,6 +30,54 @@ import {
   Text,
   
 } from './styles';
+
+const photos = [
+  {
+    src: bamboo,
+    width: 4,
+    height: 3
+  },
+  {
+    src: Basilico,
+    width: 1,
+    height: 1
+  },
+  {
+    src: BonAppeti,
+    width: 3,
+    height: 4
+  },
+  {
+    src: bruderschaft,
+    width: 3,
+    height: 4
+  },
+  {
+    src: domashnij,
+    width: 3,
+    height: 4
+  },
+  {
+    src: GrafOrlov,
+    width: 4,
+    height: 3
+  },
+  {
+    src: lobbi,
+    width: 3,
+    height: 4
+  },
+  {
+    src: malina,
+    width: 4,
+    height: 3
+  },
+  {
+    src: troeVLodke,
+    width: 4,
+    height: 3
+  }
+];
 
 class Food extends React.Component {
   constructor(props){
@@ -104,7 +162,7 @@ class Food extends React.Component {
           <Name>Pool bar</Name>
           <Text>напитки, закуски, мороженое, работает с 8:00 до 20:00 (функционирует с мая по октябрь).</Text>
         </Item>
-        <Photo/>
+        <Photo photos={photos}/>
         <Footer/>
       </Container>
 </>

@@ -16,6 +16,12 @@
   text-shadow: #000 0 0 11px;
 }
 
+@media screen and (max-width: 500px) {
+  .itemSize {
+    font-size:30px;
+  }
+}
+
 .itemSizeStars {
   font-size: 45px;
   text-shadow: #000 0 8px 40px;

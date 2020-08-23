@@ -37,7 +37,6 @@ server
         for (let i = 0; i < 3; i++) {
           cookiesBG[i] = proxyRes.headers['set-cookie'][i].split(';')[0];
         }
-        console.log(cookiesBG)
         return {}
       }
     })
@@ -49,7 +48,6 @@ server
       year = req.query.data.split('.')[2];
       nights = req.query.f7;
       persons = req.query.p;
-      console.log(day, month, year, nights, persons);
       next()
     },
     proxy(`http://export.bgoperator.ru/partners`,
@@ -64,7 +62,6 @@ server
         // For joining cookies in request to avoid "401 Unauthorized"
         proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
           proxyReqOpts.headers['Cookie'] = `${cookiesBG.join('; ')}`;
-          console.log(srcReq.url);
           return proxyReqOpts;
         },
         // Parsing bg server response for user correct output

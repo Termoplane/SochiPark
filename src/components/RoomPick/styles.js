@@ -33,7 +33,7 @@ export const Container = styled.div(
       flex-direction:row;
       `,
     xxl: css`
-      width: 80%;
+      width: 90%;
        min-height: 70vh;
       margin:auto;
       display:flex;

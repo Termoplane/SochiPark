@@ -1,5 +1,5 @@
 import React from 'react';
-import {Spin, Modal, Button, Form, Input, InputNumber} from 'antd';
+import {Spin, Modal, Button, Form, Input, InputNumber, notification} from 'antd';
 
 import FeedbackForm from '../FeedbackForm'
 
@@ -32,7 +32,7 @@ class Calculator extends React.Component{
       kidsValue: 0,
       adultsValue: 1,
       nightsValue: 1,
-      dateValue: 0,
+      dateValue: undefined
     };
   }
   
@@ -107,13 +107,22 @@ class Calculator extends React.Component{
     //this.formRef = React.createRef();
   }
 
+  openNotification = (e) => {
+    e.preventDefault()
+    notification.open({
+      message: 'Введите дату',
+      description:
+        'Вы не ввели дату',
+    });
+  };
+
   // happens when user clicks outside modal window
   handleCancel = e => {
     this.setState({
       visible: false,
     });
   };
-  
+
   render(){
     const {fetching, showResult, options, keys, id, kidsValue, adultsValue} = this.state;
     return(
@@ -198,7 +207,7 @@ class Calculator extends React.Component{
           </Container>
           <Container>
             <div className='buttonContainer'>
-              <button className='searchButton' onClick={this.buttonClickHandle}>Поиск номеров</button>
+              <button className='searchButton' onClick={this.state.dateValue ? this.buttonClickHandle : this.openNotification}>Поиск номеров</button>
             </div>
           </Container>
         </form>
@@ -228,7 +237,9 @@ class Calculator extends React.Component{
                     <div className='reserve'>
                       <BookingButton onClick={this.showModal} id={keys}>Забронировать</BookingButton>
                     </div>
-                    <Modal
+                  </ResultItem>
+                ))}
+                 <Modal
                       title="Забронировать"
                       visible={this.state.visible}
                       onCancel={this.handleCancel}
@@ -237,9 +248,7 @@ class Calculator extends React.Component{
                     {this.state.loadingform ? <Spin>Отправка</Spin> :
                       <FeedbackForm adults={adultsValue} kids ={kidsValue} formtimeout={this.formtimeout} doloadingform={this.doloadingform} text={`КОМНАТА: ${options[this.state.id].room}\nДАТА ЗАЕЗДА: ${options[this.state.id].dt}\nКОЛИЧЕСТВО ВЗРОСЛЫХ: ${adultsValue}\nКОЛИЧЕСТВО ДЕТЕЙ: ${kidsValue}\nКОЛИЧЕСТВО НОЧЕЙ: ${options[this.state.id].duration}\nЦЕНА ЗА НОЧЬ: ${Math.trunc(options[this.state.id].prices[0].amount / options[this.state.id].duration)} руб.\nОБЩАЯ ЦЕНА: ${options[this.state.id].prices[0].amount} руб.\n------------------------------------\nОставьте комментарии и пожелания:\n`} />
                     }
-                    </Modal>
-                  </ResultItem>
-                ))}
+                  </Modal>
               </div>
             }
           </Results>
