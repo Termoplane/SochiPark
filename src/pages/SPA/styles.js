@@ -29,3 +29,10 @@ padding-top:50px;
 export const List = styled.div`
 padding:10px;
 `
+
+export const Icon = styled.div`
+  /* background-image: ${props => url(`${props.icon}`)}; */
+  width:30px;
+  height:30px;
+  background-size:cover;
+`

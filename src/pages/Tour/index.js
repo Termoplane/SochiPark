@@ -17,6 +17,7 @@ import {
   Item,
   Island,
   FormContainer,
+  TextDescription,
 } from './styles';
 
 class Tour extends React.Component {
@@ -37,7 +38,10 @@ class Tour extends React.Component {
       <Container>
         <Item>
           <Title><Island/>Туры в Сочи Парк Отель<Island/></Title>
-          <Description>Заполните форму и мы вам предложим туры</Description>
+          <Description>Пакетный тур в отель Сочи Парк Отель (перелет/ЖД проезд + трансфер + проживание в отеле) 
+           <TextDescription>вы можете купить онлайн на нашем сайте.</TextDescription> 
+            <TextDescription>Для получения информации по туру и его стоимости заполните форму:</TextDescription>
+</Description>
 
             <Calculator/>
         </Item>

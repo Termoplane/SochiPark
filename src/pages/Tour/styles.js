@@ -67,3 +67,7 @@ ${breakpoints({
     `,
   })}
 `
+
+export const TextDescription = styled.p`
+
+`

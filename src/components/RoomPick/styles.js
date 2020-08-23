@@ -1,6 +1,9 @@
 import styled, {css} from '@xstyled/styled-components';
 import { breakpoints } from '@xstyled/system'
 
+import {
+  Link,
+} from "react-router-dom";
 
 
 export const Container = styled.div(
@@ -157,3 +160,8 @@ export const Button = styled.div(
   }),
 );
 
+export const LinkItem = styled(Link)`
+width:100%;
+display:flex;
+justify-content:center;
+`

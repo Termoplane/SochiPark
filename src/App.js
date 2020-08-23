@@ -21,6 +21,7 @@ import Food from './Pages/Food'
 import Gallery from './Pages/Gallery'
 import Contact from './Pages/Contact'
 import Reviews from './Pages/Reviews'
+import Room from './Pages/Room'
 
 import { BaseContainer } from './baseStyles/styles';
 import './baseStyles/base.css';
@@ -65,6 +66,9 @@ class App extends React.Component {
           </Route>
           <Route exact path='/Reviews' >
             <Reviews/>
+          </Route>
+          <Route exact path='/Room/:id' >
+            <Room/>
           </Route>
         </Switch>
       </ThemeProvider>

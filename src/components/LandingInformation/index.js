@@ -19,9 +19,9 @@ class LandingInformation extends React.Component {
           <Item>
            <ItemImg/>
             <ItemText>
-              <ItemTextTitle>Добро пожаловать</ItemTextTitle>
-              <ItemTextSubTitle>Жирный текст</ItemTextSubTitle>
-              <ItemTextDescription>Мелкий текст</ItemTextDescription>
+              <ItemTextTitle>Добро пожаловать в Отель Сочи Парк</ItemTextTitle>
+              <ItemTextSubTitle>Крупный курортный комплекс, состоящий из нескольких корпусов европейского уровня. Большая территория со своей мини инфраструктурой, местами отдыха и развлечений.</ItemTextSubTitle>
+              <ItemTextDescription>Наш сайт является официальным представителем тур.оператора БиблиоГлобус</ItemTextDescription>
             </ItemText> 
           </Item>
         </ItemContainer>

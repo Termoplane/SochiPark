@@ -46,9 +46,9 @@ class Landing extends React.Component {
           <RoomPick arr={room}/>
           <LandingDescription/>
           <LandingLinks/>
-          <FormContainer>
+          {/* <FormContainer>
             <Form/>
-          </FormContainer>
+          </FormContainer> */}
           <SEO/>
           <Footer/>
       </Container>

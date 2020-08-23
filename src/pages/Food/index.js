@@ -7,6 +7,7 @@ import { Anchor,Descriptions, Badge,Row,Col } from 'antd';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import Calculator from '../../components/Calculator';
+import Photo from '../../components/Photo'
 
 
 import { 
@@ -38,7 +39,6 @@ class Food extends React.Component {
 
       <Container>
         <Item>
-        <Calculator/>
           <Title>Сочи Парк Отель — Питание</Title>
           <SubTitle>Отель предоставляет 5 типов питания:</SubTitle>
             <ListElement>без питания (не всегда доступен, только в определенные периоды);</ListElement>
@@ -104,6 +104,7 @@ class Food extends React.Component {
           <Name>Pool bar</Name>
           <Text>напитки, закуски, мороженое, работает с 8:00 до 20:00 (функционирует с мая по октябрь).</Text>
         </Item>
+        <Photo/>
         <Footer/>
       </Container>
 </>

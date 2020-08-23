@@ -13,6 +13,7 @@ display:flex;
 flex-direction:column;
 margin-top:150px;
 margin-left:25px;
+margin-bottom:50px;
 `
 
 export const Title = styled.h1``
