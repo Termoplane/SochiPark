@@ -87,18 +87,9 @@ export const ItemBackground = styled.div(
         margin-left: 15px;
         background-image: linear-gradient(to right top, #d16ba5, #c96bb1, #bf6dbd, #b170c8, #a074d3, #9671d9, #8a6fe0, #7a6de7, #7463ec, #6f58f1, #6b4cf5, #673ff8);
       `,
-    // md: css`
-    //     width: 320px;
-    //     height: 190px;
-    //     margin-left:30px;
-    // `,
-    //   lg: css`
-    //     width: 320px;
-    //     height: 190px;
-    //     margin-left:30px;
-    //   `,
       xl:css`
-        width: 460px;
+        margin-left:30px;
+        width: 400px;
         height: 290px;
       `
   }),
@@ -115,18 +106,8 @@ export const ItemImage = styled.div(
       background-size:cover;
       background-image: url('${vacation}');
       `,
-    // md: css`
-    //   width: 330px;
-    //   height: 180px;
-    //   margin-left: 30px;
-    // `,
-    // lg: css`
-    //   width: 330px;
-    //   height: 180px;
-    //   margin-left: 30px;
-    // `,
     xl:css`
-      width: 460px;
+      width: 430px;
       height: 290px;
     `
   }),

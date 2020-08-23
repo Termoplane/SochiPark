@@ -9,15 +9,15 @@ import Footer from '../../components/Footer';
 import Calculator from '../../components/Calculator';
 import Photo from '../../components/Photo'
 
-import bamboo from './images/bamboo.jpg'
-import Basilico from './images/Basilico.jpg'
-import BonAppeti from './images/BonAppeti.jpg'
-import bruderschaft from './images/bruderschaft.jpg'
-import domashnij from './images/domashnij.jpg'
-import GrafOrlov from './images/GrafOrlov.jpg'
-import lobbi from './images/lobbi.jpg'
-import malina from './images/malina.jpg'
-import troeVLodke from './images/troeVLodke.jpg'
+import bamboo from './images/compress/bamboo.jpg'
+import Basilico from './images/compress/Basilico.jpg'
+import BonAppeti from './images/compress/BonAppeti.jpg'
+import bruderschaft from './images/compress/bruderschaft.jpg'
+import domashnij from './images/compress/domashnij.jpg'
+import GrafOrlov from './images/compress/GrafOrlov.jpg'
+import lobbi from './images/compress/lobbi.jpg'
+import malina from './images/compress/malina.jpg'
+import troeVLodke from './images/compress/troeVLodke.jpg'
 
 
 import { 

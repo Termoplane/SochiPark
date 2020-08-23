@@ -10,15 +10,15 @@ import Footer from '../../components/Footer';
 import Photo from '../../components/Photo'
 
 
-import a1 from './1.jpg'
-import a2 from './2.jpg'
-import a3 from './3.jpg'
-import a4 from './4.jpg'
-import a5 from './5.jpg'
-import a6 from './6.jpg'
-import a7 from './7.jpg'
-import a8 from './8.jpg'
-import a9 from './9.jpg'
+import a1 from './images/1.jpg'
+import a2 from './images/2.jpg'
+import a3 from './images/3.jpg'
+import a4 from './images/4.jpg'
+import a5 from './images/5.jpg'
+import a6 from './images/6.jpg'
+import a7 from './images/7.jpg'
+import a8 from './images/8.jpg'
+import a9 from './images/9.jpg'
 
 
 const photos = [
