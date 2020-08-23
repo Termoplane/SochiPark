@@ -5,7 +5,6 @@ import { breakpoints } from '@xstyled/system';
 export const Container = styled.div`
     width:100%;
     height: 400px;
-    margin-bottom:100px;
     display:flex;
     justify-content:center;
     align-items:center;

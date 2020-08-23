@@ -101,11 +101,6 @@ class FormLanding extends React.Component {
         <Form.Item name={['user', 'introduction']} label="Комментарий">
           <Input.TextArea />
         </Form.Item>
-        {/* <Form.Item>
-        <Button type="primary" htmlType="submit">
-            Отправить
-          </Button>
-        </Form.Item> */}
       </Form>
       <ItemButton size="large" type="primary" htmlType="submit">
             Отправить

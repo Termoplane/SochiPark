@@ -12,7 +12,8 @@ import {
   Container, 
   Item,
   List,
-  Title
+  Title,
+  Icon,
 } from './styles';
 
 class SPA extends React.Component {
@@ -36,7 +37,10 @@ class SPA extends React.Component {
           {arr_description.map((item)=> {
             return(
               <Col xm={{span:24}} sm={{span:24}} lg={{span:8}}> 
-              <Title>{item.title}</Title>
+              <Title>
+                {/* <Icon icon={item.icon}/> */}
+                {item.title}
+              </Title>
 
                 {item.description.map((i)=> {
                   return (

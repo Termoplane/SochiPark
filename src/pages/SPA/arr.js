@@ -1,8 +1,13 @@
-
+import hair from './img/hair.svg';
+import hairNight from './img/hairNight.svg';
+import nail from './img/nail.svg';
+import plant from './img/plant.svg';
+import skincare from './img/skincare.svg';
 export const arr_description = [    
   {
     id: 2,
     title: 'Уход за руками и ногами',
+    icon: nail,
     background: 'linear-gradient(to right top, #ff62e4, #ff7ab7, #ffa1a1, #ffc6a7, #ffe5c9)',
     description: [
       '• Парафинотерапия рук - 600р',
@@ -16,6 +21,7 @@ export const arr_description = [
   {
     id: 1,
     title: 'Процедуры по телу',
+    icon: skincare,
     background: 'linear-gradient(to right top, #265da8, #537cbd, #7a9cd1, #a1bde5, #cadef9)',
     description: [
       '• Кедровая бочка (индивидуальное парение) - 550р / 15m',
@@ -29,6 +35,7 @@ export const arr_description = [
   {
     id: 3,
     title: 'Парикмахерская: стрижка и укладка женская',
+    icon: hair,
     background: 'linear-gradient(to right top, #cbc31d, #e3c952, #f3d07b, #fdd9a2, #ffe5c9)',
     description: [
       '• Короткие волосы - 1.000р + укладка - 1.500р',
@@ -41,6 +48,7 @@ export const arr_description = [
   {
     id: 4,
     title: 'Укладка (на утюг) / Вечерняя прическа',
+    icon: hairNight,
     background: 'linear-gradient(to right top, #cb1d1d, #da6238, #e7915f, #f3bc90, #ffe5c9)',
     description: [
       '• Короткие волосы - 1.500р',
@@ -65,6 +73,7 @@ export const arr_description = [
     {
     id: 0,
     title: 'Уход по телу и лицу',
+    icon: skincare,
     background: 'linear-gradient(to right top, #6a44f2, #8469ec, #9d8be4, #b4abd9, #cbcbcb)',
     description: [
       '• Скрабирование (пилинг всего тела) - 1.700р / 30m',

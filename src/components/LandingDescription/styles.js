@@ -47,11 +47,11 @@ export const ItemText = styled.div(
 );
 
 export const TextSub = styled.div`
-  font-size:15px;
+  font-size:20px;
 `
 
 export const TextTitie = styled.div`
-  font-weight:600;
+
 `
 
 export const TextDescription = styled.div``

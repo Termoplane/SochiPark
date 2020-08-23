@@ -7,7 +7,7 @@ import { Anchor,Descriptions, Badge,Row,Col } from 'antd';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
-import Photo from './components/Photo'
+import Photo from '../../components/Photo'
 
 
 import { 

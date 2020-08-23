@@ -3,6 +3,12 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
+  BrowserRouter as Router,
+  Link,
+  useParams
+} from "react-router-dom";
+
+import {
   Container,
   ItemContainer,
   Item,
@@ -10,6 +16,7 @@ import {
   ItemDescriptionText,
   ButtonContainer,
   Button,
+  LinkItem,
 } from './styles.js';
 
 class RoomPick extends React.Component {
@@ -51,7 +58,9 @@ class RoomPick extends React.Component {
                <ItemDescriptionText>Цена: {item.price}</ItemDescriptionText> 
 
                <ButtonContainer open={isOpenSubMenu && currentItem === index ? true : false}>
-                <Button open={isOpenSubMenu && currentItem === index ? true : false}>Подробнее</Button>
+                <LinkItem to={`Room/${item.id}`}>
+                  <Button open={isOpenSubMenu && currentItem === index ? true : false}>Подробнее</Button>
+                </LinkItem>
                </ButtonContainer>
               </ItemDescription>
             </Item>

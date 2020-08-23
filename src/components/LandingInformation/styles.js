@@ -97,10 +97,11 @@ export const ItemTextTitle = styled.h3`
 `
 
 export const ItemTextSubTitle = styled.span`
+text-align:end;
 `
 
 export const ItemTextDescription = styled.span`
-
+text-align:end;
 ` 
 
 

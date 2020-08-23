@@ -47,7 +47,6 @@ render() {
             <h1 className="itemSize">Сочи Парк Отель 3</h1>
             <p className="itemSizeStars">⭐⭐⭐</p>
           </div>
-          <div className="secondSlide">2</div>
         </Swiper>
         </div>
     )
