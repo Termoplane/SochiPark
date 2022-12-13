@@ -14,7 +14,7 @@
     "antd": "^4.4.3",
     "classnames": "^2.2.6",
     "cookie-universal": "^2.1.4",
-    "express": "4.17.1",
+    "express": "4.17.3",
     "express-http-proxy": "^1.6.2",
     "js-cookie": "^2.2.1",
     "leaflet": "^1.6.0",
